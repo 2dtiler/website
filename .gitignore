@@ -27,3 +27,4 @@ dist-ssr
 .wrangler
 
 .env
+src/content/releases/*.md

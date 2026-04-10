@@ -614,6 +614,64 @@
     color: var(--text-display);
   }
 
+  .release-markdown :where(h2, h3, h4) {
+    font-family: var(--font-ui);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text-display);
+  }
+
+  .release-markdown :where(h2) {
+    font-size: clamp(1.8rem, 3vw, 2.3rem);
+    margin-top: 8px;
+  }
+
+  .release-markdown :where(h3, h4) {
+    font-size: clamp(1.2rem, 2vw, 1.45rem);
+  }
+
+  .release-markdown :where(ul, ol) {
+    display: grid;
+    gap: 10px;
+    padding-left: 20px;
+  }
+
+  .release-markdown :where(li) {
+    font-size: 1.03rem;
+    line-height: 1.82;
+    color: var(--text-primary);
+  }
+
+  .release-markdown :where(a) {
+    color: var(--interactive);
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
+  .release-markdown :where(blockquote) {
+    padding-left: 18px;
+    border-left: 2px solid var(--border-visible);
+    color: var(--text-secondary);
+  }
+
+  .release-markdown :where(code) {
+    font-family: var(--font-mono);
+    font-size: 0.95em;
+  }
+
+  .release-markdown :where(pre) {
+    overflow-x: auto;
+    padding: 18px;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+  }
+
+  .release-markdown :where(pre code) {
+    display: block;
+    line-height: 1.7;
+  }
+
   .note-divider {
     height: 1px;
     background: var(--border);
@@ -675,6 +733,20 @@
     background: var(--text-display);
     color: var(--black);
     border-color: var(--text-display);
+  }
+
+  .pagination-ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 14px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
   }
 
   .footer-shell {

@@ -13,7 +13,34 @@ const { notes, currentPage, totalPages } = Astro.props;
 const pageHref = (page: number) => (page === 1 ? '/blog' : `/blog/page/${page}`);
 const previousHref = currentPage > 1 ? pageHref(currentPage - 1) : undefined;
 const nextHref = currentPage < totalPages ? pageHref(currentPage + 1) : undefined;
-const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
+
+function getPaginationItems() {
+	if (totalPages <= 7) {
+		return Array.from({ length: totalPages }, (_, index) => index + 1);
+	}
+
+	const items: Array<number | 'ellipsis-start' | 'ellipsis-end'> = [1];
+	const windowStart = Math.max(2, currentPage - 1);
+	const windowEnd = Math.min(totalPages - 1, currentPage + 1);
+
+	if (windowStart > 2) {
+		items.push('ellipsis-start');
+	}
+
+	for (let page = windowStart; page <= windowEnd; page += 1) {
+		items.push(page);
+	}
+
+	if (windowEnd < totalPages - 1) {
+		items.push('ellipsis-end');
+	}
+
+	items.push(totalPages);
+
+	return items;
+}
+
+const paginationItems = getPaginationItems();
 ---
 
 <section class="archive-shell">
@@ -23,7 +50,7 @@ const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
 				<p class="eyebrow">Release notes / shipping log</p>
 				<h1 class="archive-title">Product changes, editor improvements, and workflow updates in one archive.</h1>
 				<p class="section-copy">
-					This is the public release stream for 2D Tiler. The entries below are mock data for now, but the structure is the real archive shape: date, version, headline, and the concrete operational changes that shipped.
+					This archive is generated from published GitHub releases for 2D Tiler. Each dev run and production build syncs release markdown into static Astro pages with versioned detail routes and paginated archive pages.
 				</p>
 			</div>
 			<div class="blog-intro-card archive-stat-card reveal reveal-delay-1">
@@ -50,12 +77,16 @@ const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
 				{nextHref && <a class="button button-secondary" href={nextHref}>Next</a>}
 			</div>
 			<ul class="pagination-list" aria-label="Release note pages">
-				{pages.map((page) => (
+				{paginationItems.map((item) => (
 					<li>
-						{page === currentPage ? (
-							<span class="pagination-link-current" aria-current="page">{page}</span>
+						{typeof item === 'number' ? (
+							item === currentPage ? (
+								<span class="pagination-link-current" aria-current="page">{item}</span>
+							) : (
+								<a class="pagination-link" href={pageHref(item)}>{item}</a>
+							)
 						) : (
-							<a class="pagination-link" href={pageHref(page)}>{page}</a>
+							<span class="pagination-ellipsis" aria-hidden="true">...</span>
 						)}
 					</li>
 				))}

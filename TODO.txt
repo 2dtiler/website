@@ -1,3 +1,5 @@
-Nothing design
-Blog posts
+Review feedback from copilot review
+Blog posts on build, read from github
+Fill in content
+Update Screenshot
 Update README.md

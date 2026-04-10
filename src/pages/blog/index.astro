@@ -6,8 +6,8 @@ import ReleaseNotesArchive from '../../components/ReleaseNotesArchive.astro';
 import { getReleaseNotesPage, getReleaseNotesPageCount } from '../../data/releaseNotes';
 
 const currentPage = 1;
-const totalPages = getReleaseNotesPageCount();
-const notes = getReleaseNotesPage(currentPage);
+const totalPages = await getReleaseNotesPageCount();
+const notes = await getReleaseNotesPage(currentPage);
 ---
 
 <Layout title="Release Notes — 2D Tiler" description="A paginated archive of product updates and release notes for 2D Tiler.">
