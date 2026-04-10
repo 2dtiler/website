@@ -1,21 +1,30 @@
 ---
+import { render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
-import { formatReleaseDate, releaseNotes, type ReleaseNote } from '../../data/releaseNotes';
+import {
+	formatReleaseDate,
+	getAllReleaseNoteEntries,
+	type ReleaseNoteEntry,
+} from '../../data/releaseNotes';
 
-export function getStaticPaths() {
-	return releaseNotes.map((note) => ({
-		params: { slug: note.slug },
-		props: { note },
+export async function getStaticPaths() {
+	const entries = await getAllReleaseNoteEntries();
+
+	return entries.map((entry: ReleaseNoteEntry) => ({
+		params: { slug: entry.id },
+		props: { entry },
 	}));
 }
 
 interface Props {
-	note: ReleaseNote;
+	entry: ReleaseNoteEntry;
 }
 
-const { note } = Astro.props;
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const note = entry.data;
 ---
 
 <Layout title={`${note.version} — ${note.title} — 2D Tiler`} description={note.summary}>
@@ -46,42 +55,23 @@ const { note } = Astro.props;
 						<span class="meta-value">{note.readTime}</span>
 					</div>
 					<div class="note-divider"></div>
-					<div class="post-prose">
-						<p>{note.intro}</p>
-						<ul class="post-section-list">
-							{note.sections.map((section, index) => (
-								<li class="post-section-item">
-									<span class="list-bullet">{String(index + 1).padStart(2, '0')}</span>
-									<div class="section-stack">
-										<h2 class="card-title">{section.title}</h2>
-										<p>{section.body}</p>
-										{section.bullets && (
-											<ul class="highlight-list">
-												{section.bullets.map((bullet) => (
-													<li class="highlight-item">
-														<span class="list-bullet">+</span>
-														<p class="card-copy">{bullet}</p>
-													</li>
-												))}
-											</ul>
-										)}
-									</div>
-								</li>
-							))}
-						</ul>
+					<div class="post-prose release-markdown">
+						<Content />
 					</div>
 				</article>
 
 				<aside class="blog-intro-card article-sidebar reveal reveal-delay-2">
-					<p class="eyebrow">Highlights / quick scan</p>
-					<ul class="archive-highlight-list">
-						{note.highlights.map((highlight) => (
-							<li class="archive-highlight-item">
-								<span class="list-bullet">+</span>
-								<p class="card-copy">{highlight}</p>
-							</li>
-						))}
-					</ul>
+					<p class="eyebrow">Release source / metadata</p>
+					<div class="post-meta-row">
+						<span class="meta-label">Version</span>
+						<span class="muted-note">Git tag</span>
+						<span class="meta-value">{note.version}</span>
+					</div>
+					<div class="post-meta-row">
+						<span class="meta-label">Source</span>
+						<span class="muted-note">GitHub release</span>
+						<a class="post-link" href={note.sourceUrl} target="_blank" rel="noreferrer">Open on GitHub</a>
+					</div>
 					<a class="post-link" href="/blog">Back to release archive</a>
 				</aside>
 			</div>

@@ -5,8 +5,8 @@ import Footer from '../../../components/Footer.astro';
 import ReleaseNotesArchive from '../../../components/ReleaseNotesArchive.astro';
 import { getReleaseNotesPage, getReleaseNotesPageCount } from '../../../data/releaseNotes';
 
-export function getStaticPaths() {
-	const totalPages = getReleaseNotesPageCount();
+export async function getStaticPaths() {
+	const totalPages = await getReleaseNotesPageCount();
 
 	return Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) => {
 		const page = index + 2;
@@ -22,8 +22,8 @@ interface Props {
 }
 
 const { currentPage } = Astro.props;
-const totalPages = getReleaseNotesPageCount();
-const notes = getReleaseNotesPage(currentPage);
+const totalPages = await getReleaseNotesPageCount();
+const notes = await getReleaseNotesPage(currentPage);
 ---
 
 <Layout title={`Release Notes Page ${currentPage} — 2D Tiler`} description="A paginated archive of product updates and release notes for 2D Tiler.">

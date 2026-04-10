@@ -8,7 +8,7 @@ const isBlog = pathname === '/blog' || pathname.startsWith('/blog/');
 	<div class="nav-shell">
 		<a href="/" class="brand-lockup" aria-label="2D Tiler home">
 			<span class="brand-title">2D Tiler</span>
-			<span class="brand-subtitle">Local-first / Browser-native</span>
+			<span class="brand-subtitle">Free forever / MIT / browser-native</span>
 		</a>
 
 		<button class="menu-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" type="button">
@@ -17,9 +17,10 @@ const isBlog = pathname === '/blog' || pathname.startsWith('/blog/');
 
 		<div class="nav-links" id="nav-links">
 			<a href="/" aria-current={isHome ? 'page' : undefined}>Home</a>
-			<a href="/#features">Features</a>
+			<a href="/#features">Why 2D Tiler</a>
+			<a href="/#workflow">Workflow</a>
+			<a href="/#proof">Proof</a>
 			<a href="/blog" aria-current={isBlog ? 'page' : undefined}>Release Notes</a>
-			<a href="/#tech">Tech</a>
 		</div>
 
 		<div class="nav-actions">

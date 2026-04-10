@@ -3,8 +3,9 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "sync-release-notes": "bun run scripts/sync-github-releases.ts",
+    "dev": "bun run sync-release-notes && astro dev",
+    "build": "bun run sync-release-notes && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "deploy": "bun run build && wrangler pages deploy dist --project-name 2dtiler-website"
@@ -15,6 +16,7 @@
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
+    "@types/node": "^25.6.0",
     "wrangler": "^4.81.0"
   }
 }

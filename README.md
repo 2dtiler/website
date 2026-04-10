@@ -1,46 +1,43 @@
-# Astro Starter Kit: Basics
+# 2D Tiler Website
 
-```sh
-npm create astro@latest -- --template basics
-```
+Astro marketing site and release archive for 2D Tiler.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Release note sync
 
-## 🚀 Project Structure
+`bun run dev` and `bun run build` both run a sync step before Astro starts. That step uses GitHub CLI to fetch releases from `2dtiler/app` and writes static markdown files into `src/content/releases/`. Astro content collections then turn those markdown files into paginated archive pages under `/blog` and detail pages under `/blog/[slug]`.
 
-Inside of your Astro project, you'll see the following folders and files:
+Requirements:
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+- Bun
+- Node.js >= 22.12
+- GitHub CLI (`gh`)
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Optional local auth:
 
-## 🧞 Commands
+- `GH_TOKEN` or `GITHUB_TOKEN`
+- Or logged-in GitHub CLI session via `gh auth login`
+- CI should always provide token
 
-All commands are run from the root of the project, from a terminal:
+## Commands
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+| Command                      | Action                                                |
+| :--------------------------- | :---------------------------------------------------- |
+| `bun run sync-release-notes` | Fetch GitHub releases and regenerate markdown content |
+| `bun run dev`                | Sync release notes, then start Astro dev server       |
+| `bun run build`              | Sync release notes, then build static site            |
+| `bun run preview`            | Preview built site                                    |
+| `bun run deploy`             | Build and deploy site with Wrangler                   |
 
-## 👀 Want to learn more?
+## CI token
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Recommended GitHub Actions secret name: `APP_RELEASES_TOKEN`.
+
+Recommended token type: fine-grained personal access token scoped only to repository `2dtiler/app`.
+
+Required repository permission:
+
+- `Contents: Read`
+
+Deploy workflows pass that secret into build as `GH_TOKEN`. If secret is absent, workflows fall back to `github.token`, which is still enough for public release reads.
+
+Local dev note: if `gh` is installed but not authenticated, run `gh auth login` once or export `GH_TOKEN` before starting dev/build.

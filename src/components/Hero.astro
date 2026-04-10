@@ -1,56 +1,77 @@
 ---
-const heroStats = [
-	{ label: 'Session start', value: '[READY]', note: 'No account / no sync wall' },
-	{ label: 'Canvas throughput', value: '60 FPS', note: 'GPU-backed drawing' },
-	{ label: 'Persistence', value: 'LOCAL', note: 'IndexedDB project storage' },
+const trustItems = [
+	{ label: 'Cost', value: 'FREE', note: 'MIT licensed and open source' },
+	{ label: 'Start time', value: 'NOW', note: 'No login or install wall' },
+	{ label: 'Workflow', value: 'LOCAL', note: 'Browser-native editing with autosave' },
+];
+
+const galleryPanels = [
+	{ title: 'Map overview', note: 'Placeholder / world map composition screenshot' },
+	{ title: 'Layers + objects', note: 'Placeholder / layers panel and trigger-object screenshot' },
+	{ title: 'Sprite editor', note: 'Placeholder / pixel editing and animation timeline screenshot' },
+	{ title: 'Exports', note: 'Placeholder / project, map, and sprite export screenshot' },
 ];
 ---
 
 <section class="section">
-	<div class="site-shell hero-grid">
-		<div class="hero-copy">
-			<div class="hero-intro">
+	<div class="site-shell grid items-start gap-10 pt-28 xl:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] xl:gap-14">
+		<div class="grid gap-8">
+			<div class="grid gap-4">
 				<div class="signal-pill reveal">
 					<span class="signal-dot" aria-hidden="true"></span>
-					<span>Light-mode art direction / dark mode included</span>
+					<span>One app / maps, sprites, objects, exports</span>
 				</div>
-				<p class="eyebrow reveal reveal-delay-1">Browser-native tile workflow / shipping build</p>
-				<h1 class="display-text reveal reveal-delay-1">2D maps stay fast when the editor stays local.</h1>
-				<p class="section-copy hero-lede reveal reveal-delay-2">
-					Paint tiles, reorder layers, place objects, and export compact project files without a login wall, desktop wrapper, or server round-trip.
+				<p class="eyebrow reveal reveal-delay-1">For indie devs who are done juggling too many tools</p>
+				<h1 class="display-text reveal reveal-delay-1">Build your 2D game map without fighting five different tools.</h1>
+				<p class="section-copy reveal reveal-delay-2 max-w-[46ch]">
+					2D Tiler gives you map building, tilesets, layers, gameplay objects, terrain fills, sprite editing, and export tools in one free browser app. Start faster, stay focused, and ship without stitching together a fragile workflow.
 				</p>
 			</div>
-			<div class="button-row hero-actions reveal reveal-delay-3">
+
+			<div class="button-row reveal reveal-delay-3">
 				<a class="button button-primary" href="https://app.2dtiler.com/">Open Editor</a>
-				<a class="button button-secondary" href="#features">Inspect Features</a>
+				<a class="button button-secondary" href="#workflow">See How It Works</a>
 			</div>
-			<div class="hero-metadata reveal reveal-delay-4">
-				<div class="hero-meta-row">
-					<span class="meta-label">Input</span>
-					<span class="muted-note">Tilesets, layers, object data</span>
-					<span class="meta-value">01</span>
-				</div>
-				<div class="hero-meta-row">
-					<span class="meta-label">Output</span>
-					<span class="muted-note">Compact project and map exports</span>
-					<span class="meta-value">02</span>
-				</div>
+
+			<div class="reveal reveal-delay-4 grid gap-3 sm:grid-cols-3">
+				{trustItems.map((item) => (
+					<article class="feature-card p-4">
+						<p class="eyebrow">{item.label}</p>
+						<p class="meta-value mt-1 text-2xl uppercase">{item.value}</p>
+						<p class="card-copy">{item.note}</p>
+					</article>
+				))}
 			</div>
 		</div>
 
-		<div class="hero-panel surface-card reveal reveal-delay-4">
-			<div class="section-stack hero-panel-copy">
-				<p class="eyebrow">Live panel / current build</p>
-				{heroStats.map((stat) => (
-					<div class="hero-meta-row">
-						<span class="meta-label">{stat.label}</span>
-						<span class="muted-note">{stat.note}</span>
-						<span class="meta-value">{stat.value}</span>
+		<div class="grid gap-4 reveal reveal-delay-4">
+			<div class="hero-panel surface-card">
+				<div class="flex items-center justify-between gap-4">
+					<div>
+						<p class="eyebrow">Live editor / current product surface</p>
+						<p class="card-copy mt-2">Map canvas, tilesets, layers, and panels in one workspace.</p>
 					</div>
-				))}
+					<span class="muted-note">Ready</span>
+				</div>
+				<div class="hero-viewport">
+					<img src="/screenshot.png" alt="2D Tiler editor showing the map canvas, layers panel, and tileset browser" class="object-top" />
+				</div>
 			</div>
-			<div class="hero-viewport">
-				<img src="/screenshot.png" alt="2D Tiler editor canvas and panels" />
+
+			<div class="grid gap-4 sm:grid-cols-2">
+				{galleryPanels.map((panel) => (
+					<article
+						role="img"
+						aria-label={panel.note}
+						class="feature-card min-h-64 border-dashed"
+					>
+						<div>
+							<p class="eyebrow">Image slot</p>
+							<p class="card-title mt-2 max-w-none">{panel.title}</p>
+						</div>
+						<p class="card-copy">{panel.note}</p>
+					</article>
+				))}
 			</div>
 		</div>
 	</div>
