@@ -1,5 +1,3 @@
-Review feedback from copilot review
-Blog posts on build, read from github
 Fill in content
-Update Screenshot
+Update Screenshot(s)
 Update README.md

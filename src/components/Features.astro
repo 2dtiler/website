@@ -1,75 +1,72 @@
 ---
 const features = [
 	{
-		label: 'Brush engine',
-		title: 'Paint, fill, and vary tiles without leaving the canvas.',
-		description: 'Brush sizes run from 1x1 to 5x5, with bucket fill and weighted terrain fill for faster large-area drafting.',
-		value: '05 MODES',
-		filled: 8,
+		label: 'Map building',
+		title: 'Block out maps fast, then keep refining without tool-switching fatigue.',
+		description: 'Paint, erase, bucket fill, and use weighted terrain fill directly on the canvas with brush sizes from 1x1 to 5x5.',
+		proof: ['1x1 to 5x5 brushes', 'Bucket fill + terrain fill'],
 	},
 	{
-		label: 'Layer stack',
-		title: 'Treat maps like structured scenes instead of flat sheets.',
-		description: 'Tile, image, object, and grouped layers can be renamed, hidden, locked, reordered, and nested in a single panel.',
-		value: '∞ ORDER',
-		filled: 7,
-	},
-	{
-		label: 'Objects',
-		title: 'Drop gameplay shapes and typed properties into the same project file.',
-		description: 'Use points, rectangles, ellipses, and polygons for triggers, spawn markers, collision zones, and authored metadata.',
-		value: 'TYPED',
-		filled: 6,
+		label: 'Layers',
+		title: 'Keep backgrounds, gameplay tiles, props, and references organized in one scene.',
+		description: 'Use tile, image, object, and grouped layers that can be renamed, hidden, locked, reordered, and nested.',
+		proof: ['Tile + image + object layers', 'Hide / lock / reorder / group'],
 	},
 	{
 		label: 'Tilesets',
-		title: 'Import arbitrary source images and organize them before painting.',
-		description: 'Handle tile sizes from 8px through 128px, regroup assets, and keep the browser-side workflow consistent across projects.',
-		value: '8-128 PX',
-		filled: 9,
+		title: 'Bring in your art once and keep it usable across real projects.',
+		description: 'Import source images, normalize tile size, and organize tilesets and map groups so projects stay manageable as they grow.',
+		proof: ['8px to 128px tiles', 'Grouped maps and grouped tilesets'],
 	},
 	{
-		label: 'Search tools',
-		title: 'Swap tile patterns across whole maps without manual cleanup.',
-		description: 'Pattern-aware find and replace supports wildcards and 5x5 search windows across multiple layers.',
-		value: '5X5 GRID',
-		filled: 5,
+		label: 'Gameplay data',
+		title: 'Add triggers, zones, markers, and metadata in the same workspace as your level art.',
+		description: 'Place points, rectangles, ellipses, and polygons, then attach typed properties instead of tracking game logic in a separate tool.',
+		proof: ['Point / rectangle / ellipse / polygon', 'Typed properties in-project'],
 	},
 	{
-		label: 'Project scope',
-		title: 'Keep multiple maps, exports, and undo history in one place.',
-		description: 'Projects can manage multiple maps and groups while keeping compact exports and persistent undo/redo history available.',
-		value: '50 STEPS',
-		filled: 10,
+		label: 'Sprite workflow',
+		title: 'Handle sprite edits and animation exports without bouncing to another app for every fix.',
+		description: 'Use pixel drawing tools, frame timelines, and exports for PNG, GIF, and sprite sheets when you need art support around your maps.',
+		proof: ['PNG / GIF / sprite sheet export', 'Frame timeline for animation'],
+	},
+	{
+		label: 'Cleanup + export',
+		title: 'Make global map changes and hand off compact files that travel cleanly.',
+		description: 'Use pattern-aware find and replace across layers, keep local autosave running, and export projects, maps, or tilesets as compact files.',
+		proof: ['5x5 pattern find and replace', 'Project / map / tileset export'],
 	},
 ];
 ---
 
 <section class="section" id="features">
-	<div class="site-shell kicker-grid">
-		<div class="section-header reveal">
-			<p class="eyebrow">Feature matrix / operator view</p>
-			<h2 class="section-title">Everything critical is visible, sortable, and one move away from the canvas.</h2>
+	<div class="site-shell grid gap-10 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:gap-14">
+		<div class="section-header reveal mb-0">
+			<p class="eyebrow">Why people switch / less friction, more shipping</p>
+			<h2 class="section-title">Stop duct-taping together separate tools just to finish one 2D scene.</h2>
 			<p class="section-copy">
-				The editor stays dense without collapsing into noise: large primary actions, tighter support panels, and small monospace metadata pushed to the edge.
+				2D Tiler is built for the developer who wants one place to build maps, sort layers, annotate gameplay data, clean up tiles, edit supporting art, and export work that is ready to move.
 			</p>
+			<div class="feature-card text-sm">
+				<p class="eyebrow">What changes when everything is in one app</p>
+				<p>You spend less time relearning interfaces, less time moving assets between tabs, and less time cleaning up avoidable mistakes at the end.</p>
+			</div>
 		</div>
-		<div class="feature-grid">
+
+		<div class="grid gap-4 md:grid-cols-2">
 			{features.map((feature, index) => (
-				<div class={`feature-card reveal reveal-delay-${(index % 4) + 1}`}>
+				<article class={`feature-card reveal reveal-delay-${(index % 4) + 1}`}>
 					<p class="eyebrow">{feature.label}</p>
-					<h3 class="card-title">{feature.title}</h3>
+					<h3 class="card-title mt-1 max-w-none">{feature.title}</h3>
 					<p class="card-copy">{feature.description}</p>
-					<div class="stat-row">
-						<span class="meta-label">Capacity</span>
-						<div class="segmented-bar" aria-hidden="true">
-							{Array.from({ length: 10 }, (_, segmentIndex) => (
-								<span class:list={["segment", { "is-filled": segmentIndex < feature.filled }]}></span>
-							))}
-						</div>
-						<span class="stat-value">{feature.value}</span>
-					</div>
-				</div>
+					<ul class="mt-5 flex flex-wrap gap-2" aria-label={`${feature.label} proof points`}>
+						{feature.proof.map((item) => (
+							<li class="meta-label rounded-full border px-3 py-1.5">
+								{item}
+							</li>
+						))}
+					</ul>
+				</article>
 			))}
 		</div>
 	</div>

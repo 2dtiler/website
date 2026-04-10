@@ -1,38 +1,37 @@
 ---
-const metrics = [
-	{ label: 'Storage model', detail: 'IndexedDB session store with no account dependency.', value: 'LOCAL', tone: 'tone-success' },
-	{ label: 'Render target', detail: 'GPU-backed canvas pass sized for real map editing.', value: '60 FPS', tone: '' },
-	{ label: 'Undo strategy', detail: 'Patch-based history rather than full-scene snapshots.', value: '50 STEPS', tone: '' },
-	{ label: 'Export weight', detail: 'Compressed project files designed for transport and handoff.', value: 'SMALL', tone: 'tone-warning' },
+const proofCards = [
+	{ label: 'No account wall', value: 'LOCAL', detail: 'Projects live in browser storage, so you can open the editor and start immediately.' },
+	{ label: 'Safety net', value: '1 MIN', detail: 'Autosave runs on a one-minute cycle so local work keeps getting captured while you build.' },
+	{ label: 'Hand-off formats', value: '.2DP / .2DM / .2DT', detail: 'Export a whole project, a single map, or a single tileset depending on what the next step needs.' },
+	{ label: 'Art outputs', value: 'PNG / GIF / SHEET', detail: 'The image editor can also export stills, animations, and sprite sheets for supporting art workflows.' },
 ];
 ---
 
-<section class="section" id="tech">
-	<div class="site-shell metrics-grid">
-		<div class="surface-card feature-card reveal">
-			<p class="eyebrow">Performance readout / browser runtime</p>
-			<h2 class="section-title">A lightweight web runtime can still feel like a proper editor when the data path is honest.</h2>
+<section class="section" id="proof">
+	<div class="site-shell grid gap-6 xl:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] xl:items-start">
+		<div class="feature-card reveal">
+			<p class="eyebrow">Trust layer / why this feels easier to stick with</p>
+			<h2 class="section-title">Free forever, open source, and designed to remove the usual friction.</h2>
 			<p class="section-copy compact-copy">
-				No Electron shell, no sync-first bottleneck, and no ornamental chrome. The product surface shows exactly where speed and reliability come from.
+				This is not a bait-and-switch tool. You can open it in the browser, build locally, save as you go, and keep your project flow simple instead of being pushed through accounts, installs, or upgrade pressure.
 			</p>
-			<div class="stat-row">
-				<span class="meta-label">Primary metric</span>
-				<div class="segmented-bar" aria-hidden="true">
-					{Array.from({ length: 10 }, (_, index) => (
-						<span class:list={["segment", { "is-filled": index < 9, "is-accent": index === 9 }]}></span>
-					))}
-				</div>
-				<span class="stat-value">60 FPS</span>
+			<div
+				role="img"
+				aria-label="Placeholder for export panel, sprite sheet preview, and project handoff screenshot"
+				class="hero-viewport grid min-h-72 content-between border-dashed p-4"
+			>
+				<p class="eyebrow">Image slot / trust proof</p>
+				<p class="card-copy">Placeholder / export panel, sprite sheet preview, and project handoff screenshot</p>
 			</div>
 		</div>
-		<div class="metric-card reveal reveal-delay-1">
-			<p class="eyebrow">System notes</p>
-			{metrics.map((metric) => (
-				<div class="stat-row">
-					<span class="meta-label">{metric.label}</span>
-					<span class="muted-note">{metric.detail}</span>
-					<span class:list={["metric-value", metric.tone]}>{metric.value}</span>
-				</div>
+
+		<div class="grid gap-4 md:grid-cols-2">
+			{proofCards.map((card, index) => (
+				<article class={`feature-card reveal reveal-delay-${(index % 4) + 1}`}>
+					<p class="eyebrow">{card.label}</p>
+					<p class="meta-value mt-1 text-2xl uppercase sm:text-3xl">{card.value}</p>
+					<p class="card-copy">{card.detail}</p>
+				</article>
 			))}
 		</div>
 	</div>
