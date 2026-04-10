@@ -1,0 +1,65 @@
+---
+import ReleaseNoteCard from './ReleaseNoteCard.astro';
+import type { ReleaseNote } from '../data/releaseNotes';
+
+interface Props {
+	notes: ReleaseNote[];
+	currentPage: number;
+	totalPages: number;
+}
+
+const { notes, currentPage, totalPages } = Astro.props;
+
+const pageHref = (page: number) => (page === 1 ? '/blog' : `/blog/page/${page}`);
+const previousHref = currentPage > 1 ? pageHref(currentPage - 1) : undefined;
+const nextHref = currentPage < totalPages ? pageHref(currentPage + 1) : undefined;
+const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
+---
+
+<section class="archive-shell">
+	<div class="site-shell">
+		<header class="archive-head reveal">
+			<div class="archive-intro section-header section-header--wide">
+				<p class="eyebrow">Release notes / shipping log</p>
+				<h1 class="archive-title">Product changes, editor improvements, and workflow updates in one archive.</h1>
+				<p class="section-copy">
+					This is the public release stream for 2D Tiler. The entries below are mock data for now, but the structure is the real archive shape: date, version, headline, and the concrete operational changes that shipped.
+				</p>
+			</div>
+			<div class="blog-intro-card archive-stat-card reveal reveal-delay-1">
+				<div class="archive-meta-row">
+					<span class="meta-label">Archive page</span>
+					<span class="muted-note">Paginated release notes</span>
+					<span class="meta-value">{String(currentPage).padStart(2, '0')}</span>
+				</div>
+				<div class="archive-meta-row">
+					<span class="meta-label">Total pages</span>
+					<span class="muted-note">Static Astro routes</span>
+					<span class="meta-value">{String(totalPages).padStart(2, '0')}</span>
+				</div>
+			</div>
+		</header>
+
+		<div class="archive-grid">
+			{notes.map((note, index) => <ReleaseNoteCard note={note} index={index} />)}
+		</div>
+
+		<div class="archive-controls">
+			<div class="button-row">
+				{previousHref && <a class="button button-secondary" href={previousHref}>Previous</a>}
+				{nextHref && <a class="button button-secondary" href={nextHref}>Next</a>}
+			</div>
+			<ul class="pagination-list" aria-label="Release note pages">
+				{pages.map((page) => (
+					<li>
+						{page === currentPage ? (
+							<span class="pagination-link-current" aria-current="page">{page}</span>
+						) : (
+							<a class="pagination-link" href={pageHref(page)}>{page}</a>
+						)}
+					</li>
+				))}
+			</ul>
+		</div>
+	</div>
+</section>

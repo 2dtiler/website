@@ -1,0 +1,91 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { formatReleaseDate, releaseNotes, type ReleaseNote } from '../../data/releaseNotes';
+
+export function getStaticPaths() {
+	return releaseNotes.map((note) => ({
+		params: { slug: note.slug },
+		props: { note },
+	}));
+}
+
+interface Props {
+	note: ReleaseNote;
+}
+
+const { note } = Astro.props;
+---
+
+<Layout title={`${note.version} — ${note.title} — 2D Tiler`} description={note.summary}>
+	<Nav />
+	<main class="post-shell">
+		<div class="site-shell">
+			<header class="post-head reveal">
+				<p class="eyebrow">Release note / {note.version}</p>
+				<h1 class="post-title">{note.title}</h1>
+				<p class="section-copy post-summary">{note.summary}</p>
+			</header>
+
+			<div class="post-layout">
+				<article class="post-body-card reveal reveal-delay-1">
+					<div class="post-meta-row">
+						<span class="meta-label">Published</span>
+						<span class="muted-note">Release archive</span>
+						<span class="meta-value">{formatReleaseDate(note.publishedAt)}</span>
+					</div>
+					<div class="post-meta-row">
+						<span class="meta-label">Status</span>
+						<span class="muted-note">Current note state</span>
+						<span class="meta-value">{note.status}</span>
+					</div>
+					<div class="post-meta-row">
+						<span class="meta-label">Read time</span>
+						<span class="muted-note">Scan or full read</span>
+						<span class="meta-value">{note.readTime}</span>
+					</div>
+					<div class="note-divider"></div>
+					<div class="post-prose">
+						<p>{note.intro}</p>
+						<ul class="post-section-list">
+							{note.sections.map((section, index) => (
+								<li class="post-section-item">
+									<span class="list-bullet">{String(index + 1).padStart(2, '0')}</span>
+									<div class="section-stack">
+										<h2 class="card-title">{section.title}</h2>
+										<p>{section.body}</p>
+										{section.bullets && (
+											<ul class="highlight-list">
+												{section.bullets.map((bullet) => (
+													<li class="highlight-item">
+														<span class="list-bullet">+</span>
+														<p class="card-copy">{bullet}</p>
+													</li>
+												))}
+											</ul>
+										)}
+									</div>
+								</li>
+							))}
+						</ul>
+					</div>
+				</article>
+
+				<aside class="blog-intro-card article-sidebar reveal reveal-delay-2">
+					<p class="eyebrow">Highlights / quick scan</p>
+					<ul class="archive-highlight-list">
+						{note.highlights.map((highlight) => (
+							<li class="archive-highlight-item">
+								<span class="list-bullet">+</span>
+								<p class="card-copy">{highlight}</p>
+							</li>
+						))}
+					</ul>
+					<a class="post-link" href="/blog">Back to release archive</a>
+				</aside>
+			</div>
+		</div>
+	</main>
+	<Footer />
+</Layout>

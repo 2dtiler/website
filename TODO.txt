@@ -1,4 +1,3 @@
 Nothing design
 Blog posts
-Roadmap
-Google Analytics
+Update README.md

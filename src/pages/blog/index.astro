@@ -1,0 +1,19 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import ReleaseNotesArchive from '../../components/ReleaseNotesArchive.astro';
+import { getReleaseNotesPage, getReleaseNotesPageCount } from '../../data/releaseNotes';
+
+const currentPage = 1;
+const totalPages = getReleaseNotesPageCount();
+const notes = getReleaseNotesPage(currentPage);
+---
+
+<Layout title="Release Notes — 2D Tiler" description="A paginated archive of product updates and release notes for 2D Tiler.">
+	<Nav />
+	<main class="page-shell">
+		<ReleaseNotesArchive notes={notes} currentPage={currentPage} totalPages={totalPages} />
+	</main>
+	<Footer />
+</Layout>

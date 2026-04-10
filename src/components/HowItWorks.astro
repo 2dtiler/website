@@ -2,58 +2,43 @@
 const steps = [
 	{
 		number: '01',
-		title: 'Import your tileset',
-		description: 'Upload any image as a tileset. Configure tile size, organize into groups, and start selecting tiles to paint with.',
-		accent: 'var(--color-lavender)',
-		accentBg: 'var(--color-lavender-pale)',
+		title: 'Import and normalize your tileset.',
+		description: 'Bring in any source image, define tile size, and group related assets before your first paint pass.',
+		output: 'Configured source grid',
 	},
 	{
 		number: '02',
-		title: 'Paint your map',
-		description: 'Use brushes, bucket fill, or terrain fill to paint tiles onto layers. Add objects, images, and create complex multi-layered scenes.',
-		accent: 'var(--color-peach)',
-		accentBg: 'var(--color-peach-light)',
+		title: 'Paint the map and annotate it in place.',
+		description: 'Brush tiles onto layers, add objects, and iterate on scene structure without switching tools or export steps.',
+		output: 'Layered map state',
 	},
 	{
 		number: '03',
-		title: 'Export & use',
-		description: 'Export your project, individual maps, or tilesets as compact binary files. Use them directly in your game engine of choice.',
-		accent: 'var(--color-mint)',
-		accentBg: 'var(--color-mint-light)',
+		title: 'Ship compact output to the engine pipeline.',
+		description: 'Export projects, tilesets, or individual maps as compact files designed for real production use instead of screenshots.',
+		output: 'Reusable project assets',
 	},
 ];
 ---
 
-<section class="py-25 px-6 bg-bg" id="workflow">
-	<div class="max-w-300 mx-auto">
-		<div class="text-center mb-18 reveal">
-			<span class="font-display text-[13px] font-semibold uppercase tracking-[0.14em] text-lavender mb-3 block">Workflow</span>
-			<h2 class="text-[clamp(28px,5vw,44px)] font-bold text-foreground mb-4">Simple workflow, powerful results</h2>
-			<p class="text-lg text-muted max-w-140 leading-[1.7] mx-auto">
-				Get from tileset to finished map in three easy steps.
-			</p>
+<section class="section" id="workflow">
+	<div class="site-shell">
+		<div class="section-header section-header--narrow reveal">
+			<p class="eyebrow">Workflow / three-stage loop</p>
+			<h2 class="section-title">The editor is structured like a production pass, not a demo toy.</h2>
+			<p class="section-copy">From source sheet to export bundle, each step reads like a production stage instead of a modal-heavy wizard.</p>
 		</div>
-
-		<div class="flex flex-col items-center gap-10 md:flex-row md:gap-6 md:justify-center md:items-start">
-			{steps.map((step, i) => (
-				<div class={`flex-1 max-w-100 md:max-w-[320px] text-center relative reveal reveal-delay-${i + 1}`}>
-					<div
-						class="inline-flex items-center justify-center w-14 h-14 rounded-md font-display text-xl font-extrabold mb-5"
-						style={`background: ${step.accentBg}; color: ${step.accent};`}
-					>
-						{step.number}
+		<ol class="process-list">
+			{steps.map((step, index) => (
+				<li class={`process-step reveal reveal-delay-${index + 1}`}>
+					<span class="step-number">{step.number}</span>
+					<div class="surface-card feature-card surface-card--raised">
+						<p class="eyebrow">Output / {step.output}</p>
+						<h3 class="card-title">{step.title}</h3>
+						<p class="card-copy">{step.description}</p>
 					</div>
-					<h3 class="text-xl font-bold mb-2.5 tracking-[-0.01em]">{step.title}</h3>
-					<p class="text-[15px] text-muted leading-[1.65]">{step.description}</p>
-					{i < steps.length - 1 && (
-						<div class="hidden md:block absolute top-7 -right-8" aria-hidden="true">
-							<svg width="40" height="12" viewBox="0 0 40 12" fill="none">
-								<path d="M0 6H32M32 6L26 1M32 6L26 11" stroke="var(--color-border)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-							</svg>
-						</div>
-					)}
-				</div>
+				</li>
 			))}
-		</div>
+		</ol>
 	</div>
 </section>
