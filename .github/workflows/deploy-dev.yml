@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   deploy-website:
-    name: Deploy Website to 2dtiler.com
+    name: Deploy Website to dev.2dtiler-website.pages.dev
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git

@@ -1,0 +1,35 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
+import ReleaseNotesArchive from '../../../components/ReleaseNotesArchive.astro';
+import { getReleaseNotesPage, getReleaseNotesPageCount } from '../../../data/releaseNotes';
+
+export function getStaticPaths() {
+	const totalPages = getReleaseNotesPageCount();
+
+	return Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) => {
+		const page = index + 2;
+		return {
+			params: { page: String(page) },
+			props: { currentPage: page },
+		};
+	});
+}
+
+interface Props {
+	currentPage: number;
+}
+
+const { currentPage } = Astro.props;
+const totalPages = getReleaseNotesPageCount();
+const notes = getReleaseNotesPage(currentPage);
+---
+
+<Layout title={`Release Notes Page ${currentPage} — 2D Tiler`} description="A paginated archive of product updates and release notes for 2D Tiler.">
+	<Nav />
+	<main class="page-shell">
+		<ReleaseNotesArchive notes={notes} currentPage={currentPage} totalPages={totalPages} />
+	</main>
+	<Footer />
+</Layout>

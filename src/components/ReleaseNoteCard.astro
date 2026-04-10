@@ -1,0 +1,35 @@
+---
+import { formatReleaseDate, type ReleaseNote } from '../data/releaseNotes';
+
+interface Props {
+	note: ReleaseNote;
+	index?: number;
+}
+
+const { note, index = 0 } = Astro.props;
+---
+
+<article class={`release-card reveal reveal-delay-${(index % 4) + 1}`}>
+	<p class="eyebrow">Release note / {note.version}</p>
+	<h2 class="card-title release-card-title">{note.title}</h2>
+	<p class="release-summary">{note.summary}</p>
+	<div class="archive-meta-row">
+		<span class="meta-label">Published</span>
+		<span class="muted-note">{formatReleaseDate(note.publishedAt)}</span>
+		<span class="meta-value">{note.status}</span>
+	</div>
+	<div class="archive-meta-row">
+		<span class="meta-label">Read time</span>
+		<span class="muted-note">Release notes archive</span>
+		<span class="meta-value">{note.readTime}</span>
+	</div>
+	<ul class="highlight-list">
+		{note.highlights.slice(0, 2).map((highlight) => (
+			<li class="highlight-item">
+				<span class="list-bullet">+</span>
+				<p class="card-copy">{highlight}</p>
+			</li>
+		))}
+	</ul>
+	<a class="button button-secondary" href={`/blog/${note.slug}`}>Read Note</a>
+</article>
