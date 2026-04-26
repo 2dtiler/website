@@ -43,54 +43,64 @@ function getPaginationItems() {
 const paginationItems = getPaginationItems();
 ---
 
-<section class="archive-shell">
-	<div class="site-shell">
-		<header class="archive-head reveal">
-			<div class="archive-intro section-header section-header--wide">
-				<p class="eyebrow">Release notes / shipping log</p>
-				<h1 class="archive-title">Product changes, editor improvements, and workflow updates in one archive.</h1>
-				<p class="section-copy">
-					This archive is generated from published GitHub releases for 2D Tiler. Each dev run and production build syncs release markdown into static Astro pages with versioned detail routes and paginated archive pages.
-				</p>
-			</div>
-			<div class="blog-intro-card archive-stat-card reveal reveal-delay-1">
-				<div class="archive-meta-row">
-					<span class="meta-label">Archive page</span>
-					<span class="muted-note">Paginated release notes</span>
-					<span class="meta-value">{String(currentPage).padStart(2, '0')}</span>
-				</div>
-				<div class="archive-meta-row">
-					<span class="meta-label">Total pages</span>
-					<span class="muted-note">Static Astro routes</span>
-					<span class="meta-value">{String(totalPages).padStart(2, '0')}</span>
-				</div>
-			</div>
-		</header>
-
-		<div class="archive-grid">
-			{notes.map((note, index) => <ReleaseNoteCard note={note} index={index} />)}
+<section class="mx-auto w-full max-w-7xl px-6 py-20 lg:px-8">
+	<header class="reveal grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_320px] lg:items-end">
+		<div class="flex flex-col gap-4">
+			<p class="font-label-mono text-xs uppercase tracking-[0.28em] text-secondary">Release notes / shipping log</p>
+			<h1 class="max-w-4xl text-4xl font-semibold uppercase tracking-[-0.04em] text-primary md:text-6xl">Product changes, editor improvements, and workflow updates.</h1>
+			<p class="max-w-3xl text-lg leading-8 text-on-surface-variant">
+				This archive is generated from published GitHub releases for 2D Tiler and published as static Astro pages with versioned detail routes and paginated archive pages.
+			</p>
 		</div>
-
-		<div class="archive-controls">
-			<div class="button-row">
-				{previousHref && <a class="button button-secondary" href={previousHref}>Previous</a>}
-				{nextHref && <a class="button button-secondary" href={nextHref}>Next</a>}
+		<div class="reveal reveal-delay-1 flex flex-col gap-4 rounded-xl border border-outline/35 bg-surface-container-low/70 p-6 backdrop-blur-2xl">
+			<div class="flex items-center justify-between gap-4 border-b border-outline/20 pb-4">
+				<div>
+					<p class="font-label-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">Archive page</p>
+					<p class="mt-1 text-sm text-primary">Paginated release notes</p>
+				</div>
+				<span class="font-display-dot text-4xl text-primary">{String(currentPage).padStart(2, '0')}</span>
 			</div>
-			<ul class="pagination-list" aria-label="Release note pages">
-				{paginationItems.map((item) => (
-					<li>
-						{typeof item === 'number' ? (
-							item === currentPage ? (
-								<span class="pagination-link-current" aria-current="page">{item}</span>
-							) : (
-								<a class="pagination-link" href={pageHref(item)}>{item}</a>
-							)
+			<div class="flex items-center justify-between gap-4">
+				<div>
+					<p class="font-label-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">Total pages</p>
+					<p class="mt-1 text-sm text-primary">Static Astro routes</p>
+				</div>
+				<span class="font-display-dot text-4xl text-primary">{String(totalPages).padStart(2, '0')}</span>
+			</div>
+		</div>
+	</header>
+
+	<div class="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+		{notes.map((note, index) => <ReleaseNoteCard note={note} index={index} />)}
+	</div>
+
+	<div class="mt-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+		<div class="flex flex-wrap gap-3">
+			{previousHref && (
+				<a class="inline-flex items-center justify-center border border-outline px-4 py-2 font-body text-xs font-medium uppercase tracking-[0.24em] text-primary transition-colors duration-200 hover:bg-primary hover:text-surface" href={previousHref}>
+					Previous
+				</a>
+			)}
+			{nextHref && (
+				<a class="inline-flex items-center justify-center border border-outline px-4 py-2 font-body text-xs font-medium uppercase tracking-[0.24em] text-primary transition-colors duration-200 hover:bg-primary hover:text-surface" href={nextHref}>
+					Next
+				</a>
+			)}
+		</div>
+		<ul class="flex flex-wrap items-center gap-2" aria-label="Release note pages">
+			{paginationItems.map((item) => (
+				<li>
+					{typeof item === 'number' ? (
+						item === currentPage ? (
+							<span class="inline-flex min-w-10 items-center justify-center border border-secondary/40 bg-secondary/10 px-3 py-2 font-label-mono text-xs uppercase tracking-[0.2em] text-secondary" aria-current="page">{item}</span>
 						) : (
-							<span class="pagination-ellipsis" aria-hidden="true">...</span>
-						)}
-					</li>
-				))}
-			</ul>
-		</div>
+							<a class="inline-flex min-w-10 items-center justify-center border border-outline/30 px-3 py-2 font-label-mono text-xs uppercase tracking-[0.2em] text-on-surface-variant transition-colors duration-200 hover:border-outline hover:text-primary" href={pageHref(item)}>{item}</a>
+						)
+					) : (
+						<span class="inline-flex min-w-10 items-center justify-center px-3 py-2 font-label-mono text-xs uppercase tracking-[0.2em] text-on-surface-variant" aria-hidden="true">...</span>
+					)}
+				</li>
+			))}
+		</ul>
 	</div>
 </section>

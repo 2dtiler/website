@@ -1,66 +1,57 @@
 ---
 const pathname = Astro.url.pathname;
 const isHome = pathname === '/';
+const isDocs = pathname === '/docs' || pathname === '/docs/' || pathname.startsWith('/docs/');
 const isBlog = pathname === '/blog' || pathname.startsWith('/blog/');
 ---
 
-<nav class="site-nav">
-	<div class="nav-shell">
-		<a href="/" class="brand-lockup" aria-label="2D Tiler home">
-			<span class="brand-title">2D Tiler</span>
-			<span class="brand-subtitle">Free forever / MIT / browser-native</span>
-		</a>
-
-		<button class="menu-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" type="button">
-			Menu
-		</button>
-
-		<div class="nav-links" id="nav-links">
-			<a href="/" aria-current={isHome ? 'page' : undefined}>Home</a>
-			<a href="/#features">Why 2D Tiler</a>
-			<a href="/#workflow">Workflow</a>
-			<a href="/#proof">Proof</a>
-			<a href="/blog" aria-current={isBlog ? 'page' : undefined}>Release Notes</a>
+<header class="sticky top-0 z-50 border-b border-outline/30 bg-surface/85 backdrop-blur-2xl">
+	<div class="mx-auto flex w-full max-w-7xl flex-col gap-4 px-6 py-4 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+		<div class="flex items-center justify-between gap-6">
+			<a href="/" aria-label="2D Tiler home" class="font-body text-2xl font-bold tracking-[-0.08em] text-primary">
+				2DTILER
+			</a>
+			<nav class="flex flex-wrap items-center gap-4 md:gap-6 lg:ml-8" aria-label="Primary">
+				<a
+					href="/"
+					aria-current={isHome ? 'page' : undefined}
+					class:list={[
+						'border-b pb-1 font-body text-xs font-medium uppercase tracking-[0.24em] transition-colors duration-200',
+						isHome ? 'border-primary text-primary' : 'border-transparent text-on-surface-variant hover:text-secondary',
+					]}
+				>
+					Home
+				</a>
+				<a
+					href="/docs"
+					aria-current={isDocs ? 'page' : undefined}
+					class:list={[
+						'border-b pb-1 font-body text-xs font-medium uppercase tracking-[0.24em] transition-colors duration-200',
+						isDocs ? 'border-primary text-primary' : 'border-transparent text-on-surface-variant hover:text-secondary',
+					]}
+				>
+					Docs
+				</a>
+				<a
+					href="/blog"
+					aria-current={isBlog ? 'page' : undefined}
+					class:list={[
+						'border-b pb-1 font-body text-xs font-medium uppercase tracking-[0.24em] transition-colors duration-200',
+						isBlog ? 'border-primary text-primary' : 'border-transparent text-on-surface-variant hover:text-secondary',
+					]}
+				>
+					Release Notes
+				</a>
+			</nav>
 		</div>
 
-		<div class="nav-actions">
-			<button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
-				<span class="theme-toggle-track" aria-hidden="true">
-					<span class="theme-toggle-thumb"></span>
-				</span>
-				<span class="theme-toggle-label" data-theme-label>Light</span>
-			</button>
-			<a class="button button-primary" href="https://app.2dtiler.com/">Open Editor</a>
+		<div class="flex items-center justify-end">
+			<a
+				class="inline-flex items-center justify-center border border-outline px-4 py-2 font-body text-xs font-medium uppercase tracking-[0.24em] text-primary transition-colors duration-200 hover:bg-primary hover:text-surface"
+				href="https://app.2dtiler.com/"
+			>
+				Open Editor
+			</a>
 		</div>
 	</div>
-</nav>
-
-<script>
-	const navToggle = document.getElementById('nav-toggle');
-	const navLinks = document.getElementById('nav-links');
-	const themeToggle = document.getElementById('theme-toggle');
-	const themeLabel = themeToggle?.querySelector('[data-theme-label]');
-	const root = document.documentElement;
-
-	const syncTheme = () => {
-		const theme = root.dataset.theme === 'dark' ? 'dark' : 'light';
-		themeLabel && (themeLabel.textContent = theme === 'dark' ? 'Dark' : 'Light');
-		themeToggle?.setAttribute('aria-pressed', String(theme === 'dark'));
-	};
-
-	navToggle?.addEventListener('click', () => {
-		const isOpen = navLinks?.getAttribute('data-open') === 'true';
-		navLinks?.setAttribute('data-open', String(!isOpen));
-		navToggle.setAttribute('aria-expanded', String(!isOpen));
-	});
-
-	themeToggle?.addEventListener('click', () => {
-		const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-		root.dataset.theme = nextTheme;
-		root.style.colorScheme = nextTheme;
-		window.localStorage.setItem('theme', nextTheme);
-		syncTheme();
-	});
-
-	syncTheme();
-</script>
+</header>

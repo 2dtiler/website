@@ -9,14 +9,18 @@ interface Props {
 const { note, index = 0 } = Astro.props;
 ---
 
-<article class={`release-card reveal reveal-delay-${(index % 4) + 1}`}>
-	<p class="eyebrow">Release note / {note.version}</p>
-	<h2 class="card-title release-card-title">{note.title}</h2>
-	<p class="release-summary">{note.summary}</p>
-	<div class="archive-meta-row">
-		<span class="meta-label">Published</span>
-		<span class="muted-note">{formatReleaseDate(note.publishedAt)}</span>
-		<span class="meta-value">{note.status}</span>
+<article class={`reveal reveal-delay-${(index % 4) + 1} rounded-xl border border-outline/35 bg-surface-container-low/70 p-6 backdrop-blur-2xl`}>
+	<p class="font-label-mono text-xs uppercase tracking-[0.24em] text-secondary">Release note / {note.version}</p>
+	<h2 class="mt-3 text-2xl font-medium tracking-[-0.03em] text-primary">{note.title}</h2>
+	<p class="mt-4 text-base leading-7 text-on-surface-variant">{note.summary}</p>
+	<div class="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-outline/20 pt-4">
+		<div class="flex flex-col gap-1">
+			<span class="font-label-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">Published</span>
+			<span class="text-sm text-primary">{formatReleaseDate(note.publishedAt)}</span>
+		</div>
+		<span class="border border-secondary/30 px-3 py-1 font-label-mono text-[11px] uppercase tracking-[0.2em] text-secondary">{note.status}</span>
 	</div>
-	<a class="button button-secondary" href={`/blog/${note.slug}`}>Read Note</a>
+	<a class="mt-6 inline-flex w-max items-center justify-center border border-outline px-4 py-2 font-body text-xs font-medium uppercase tracking-[0.24em] text-primary transition-colors duration-200 hover:bg-primary hover:text-surface" href={`/blog/${note.slug}`}>
+		Read Note
+	</a>
 </article>

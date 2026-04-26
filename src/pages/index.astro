@@ -3,24 +3,22 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
 import Features from '../components/Features.astro';
-import HowItWorks from '../components/HowItWorks.astro';
-import TechHighlights from '../components/TechHighlights.astro';
-import Shortcuts from '../components/Shortcuts.astro';
+import EditorPreview from '../components/EditorPreview.astro';
 import FinalCta from '../components/FinalCta.astro';
 import Footer from '../components/Footer.astro';
 ---
 
 
 <Layout
-	title="2D Tiler — The simpler all-in-one 2D map editor"
-	description="Build maps, tilesets, layers, gameplay objects, and supporting sprite work in one free open-source browser app. No login. No install. No stitched-together workflow."
+	title="2D Tiler — Build Your World"
+	description="A professional-grade, free, open-source 2D map editor for building layered worlds with precision."
 >
 	<Nav />
+	<main>
 	<Hero />
 	<Features />
-	<HowItWorks />
-	<Shortcuts />
-	<TechHighlights />
+	<EditorPreview />
 	<FinalCta />
+	</main>
 	<Footer />
 </Layout>

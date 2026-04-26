@@ -12,7 +12,7 @@ const notes = await getReleaseNotesPage(currentPage);
 
 <Layout title="Release Notes — 2D Tiler" description="A paginated archive of product updates and release notes for 2D Tiler.">
 	<Nav />
-	<main class="page-shell">
+	<main class="min-h-screen">
 		<ReleaseNotesArchive notes={notes} currentPage={currentPage} totalPages={totalPages} />
 	</main>
 	<Footer />

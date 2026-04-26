@@ -29,52 +29,50 @@ const note = entry.data;
 
 <Layout title={`${note.version} — ${note.title} — 2D Tiler`} description={note.summary}>
 	<Nav />
-	<main class="post-shell">
-		<div class="site-shell">
-			<header class="post-head reveal">
-				<p class="eyebrow">Release note / {note.version}</p>
-				<h1 class="post-title">{note.title}</h1>
-				<p class="section-copy post-summary">{note.summary}</p>
-			</header>
+	<main class="mx-auto w-full max-w-7xl px-6 py-20 lg:px-8">
+		<header class="reveal flex max-w-4xl flex-col gap-4">
+			<p class="font-label-mono text-xs uppercase tracking-[0.28em] text-secondary">Release note / {note.version}</p>
+			<h1 class="text-4xl font-semibold uppercase tracking-[-0.04em] text-primary md:text-6xl">{note.title}</h1>
+			<p class="max-w-3xl text-lg leading-8 text-on-surface-variant">{note.summary}</p>
+		</header>
 
-			<div class="post-layout">
-				<article class="post-body-card reveal reveal-delay-1">
-					<div class="post-meta-row">
-						<span class="meta-label">Published</span>
-						<span class="muted-note">Release archive</span>
-						<span class="meta-value">{formatReleaseDate(note.publishedAt)}</span>
+		<div class="mt-12 grid gap-6 xl:grid-cols-[minmax(0,1fr)_320px]">
+			<article class="reveal reveal-delay-1 rounded-2xl border border-outline/35 bg-surface-container-low/70 p-6 backdrop-blur-2xl md:p-8">
+				<div class="grid gap-4 border-b border-outline/20 pb-6 md:grid-cols-3">
+					<div class="flex flex-col gap-1">
+						<span class="font-label-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">Published</span>
+						<span class="text-sm text-primary">{formatReleaseDate(note.publishedAt)}</span>
 					</div>
-					<div class="post-meta-row">
-						<span class="meta-label">Status</span>
-						<span class="muted-note">Current note state</span>
-						<span class="meta-value">{note.status}</span>
+					<div class="flex flex-col gap-1">
+						<span class="font-label-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">Status</span>
+						<span class="text-sm text-primary">{note.status}</span>
 					</div>
-					<div class="post-meta-row">
-						<span class="meta-label">Read time</span>
-						<span class="muted-note">Scan or full read</span>
-						<span class="meta-value">{note.readTime}</span>
+					<div class="flex flex-col gap-1">
+						<span class="font-label-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">Read time</span>
+						<span class="text-sm text-primary">{note.readTime}</span>
 					</div>
-					<div class="note-divider"></div>
-					<div class="post-prose release-markdown">
-						<Content />
-					</div>
-				</article>
+				</div>
+				<div class="post-prose release-markdown mt-8">
+					<Content />
+				</div>
+			</article>
 
-				<aside class="blog-intro-card article-sidebar reveal reveal-delay-2">
-					<p class="eyebrow">Release source / metadata</p>
-					<div class="post-meta-row">
-						<span class="meta-label">Version</span>
-						<span class="muted-note">Git tag</span>
-						<span class="meta-value">{note.version}</span>
-					</div>
-					<div class="post-meta-row">
-						<span class="meta-label">Source</span>
-						<span class="muted-note">GitHub release</span>
-						<a class="post-link" href={note.sourceUrl} target="_blank" rel="noreferrer">Open on GitHub</a>
-					</div>
-					<a class="post-link" href="/blog">Back to release archive</a>
-				</aside>
-			</div>
+			<aside class="reveal reveal-delay-2 flex h-max flex-col gap-4 rounded-2xl border border-outline/35 bg-surface-container-low/70 p-6 backdrop-blur-2xl">
+				<p class="font-label-mono text-xs uppercase tracking-[0.24em] text-secondary">Release source / metadata</p>
+				<div class="flex flex-col gap-1 border-b border-outline/20 pb-4">
+					<span class="font-label-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">Version</span>
+					<span class="text-sm text-primary">{note.version}</span>
+				</div>
+				<div class="flex flex-col gap-2 border-b border-outline/20 pb-4">
+					<span class="font-label-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">Source</span>
+					<a class="text-sm uppercase tracking-[0.18em] text-primary underline decoration-outline underline-offset-4 transition-colors duration-200 hover:text-secondary" href={note.sourceUrl} target="_blank" rel="noreferrer">
+						Open on GitHub
+					</a>
+				</div>
+				<a class="inline-flex w-max items-center justify-center border border-outline px-4 py-2 font-body text-xs font-medium uppercase tracking-[0.24em] text-primary transition-colors duration-200 hover:bg-primary hover:text-surface" href="/blog">
+					Back to Release Archive
+				</a>
+			</aside>
 		</div>
 	</main>
 	<Footer />

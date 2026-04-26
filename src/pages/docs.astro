@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Docs — 2D Tiler" description="Documentation is on the way. This placeholder page marks the future docs surface for 2D Tiler.">
+	<Nav />
+	<main class="mx-auto flex min-h-[calc(100vh-17rem)] w-full max-w-7xl flex-col gap-12 px-6 py-24 lg:px-8">
+		<section class="reveal flex max-w-4xl flex-col gap-4">
+			<p class="font-label-mono text-xs uppercase tracking-[0.28em] text-secondary">Docs / Placeholder</p>
+			<h1 class="text-4xl font-semibold uppercase tracking-[-0.04em] text-primary md:text-6xl">Documentation is being assembled.</h1>
+			<p class="max-w-3xl text-lg leading-8 text-on-surface-variant">
+				This page is a placeholder for setup guides, editor workflows, export references, and release migration notes.
+			</p>
+		</section>
+
+		<section class="grid gap-4 md:grid-cols-2">
+			<article class="reveal reveal-delay-1 rounded-xl border border-outline/35 bg-surface-container-low/70 p-8 backdrop-blur-2xl">
+				<p class="font-label-mono text-xs uppercase tracking-[0.24em] text-secondary">Planned</p>
+				<h2 class="mt-3 text-2xl font-medium tracking-[-0.03em] text-primary">Getting Started</h2>
+				<p class="mt-4 text-base leading-7 text-on-surface-variant">
+					How to open the editor, build a first map, work with tilesets, and export a clean project.
+				</p>
+			</article>
+			<article class="reveal reveal-delay-2 rounded-xl border border-outline/35 bg-surface-container-low/70 p-8 backdrop-blur-2xl">
+				<p class="font-label-mono text-xs uppercase tracking-[0.24em] text-secondary">Planned</p>
+				<h2 class="mt-3 text-2xl font-medium tracking-[-0.03em] text-primary">Reference</h2>
+				<p class="mt-4 text-base leading-7 text-on-surface-variant">
+					Documentation for layers, collisions, shortcuts, export formats, and release-specific changes.
+				</p>
+			</article>
+		</section>
+	</main>
+	<Footer />
+</Layout>

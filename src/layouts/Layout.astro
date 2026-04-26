@@ -7,13 +7,13 @@ interface Props {
 }
 
 const {
-	title = "2D Tiler — Local-First Tile Map Editor",
-	description = "A browser-based 2D tile map editor for building maps, arranging layers, placing objects, and exporting compact projects without an account.",
+	title = "2D Tiler — Build Your World",
+	description = "A professional-grade, free, open-source 2D map editor for building layered worlds with precision.",
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en">
 	<head>
 		{
 			import.meta.env.PROD && (
@@ -39,18 +39,16 @@ const {
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Doto:wght@400..700&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-		<script is:inline>
-			(() => {
-				const storedTheme = window.localStorage.getItem('theme');
-				const theme = storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : 'light';
-				document.documentElement.dataset.theme = theme;
-				document.documentElement.style.colorScheme = theme;
-			})();
-		</script>
+		<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 		<title>{title}</title>
 	</head>
-	<body>
+	<body class="bg-surface font-body text-on-background">
+		<div
+			aria-hidden="true"
+			class="pointer-events-none fixed inset-0 -z-10 opacity-40 [background-image:radial-gradient(circle_at_1px_1px,var(--color-grid)_1px,transparent_0)] [background-size:24px_24px]"
+		></div>
 		<slot />
 		<script is:inline>
 			const revealElements = document.querySelectorAll('.reveal');
