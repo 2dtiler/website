@@ -6,12 +6,47 @@ import Features from '../components/Features.astro';
 import EditorPreview from '../components/EditorPreview.astro';
 import FinalCta from '../components/FinalCta.astro';
 import Footer from '../components/Footer.astro';
+
+const structuredData = [
+	{
+		'@context': 'https://schema.org',
+		'@type': 'SoftwareApplication',
+		name: '2D Tiler',
+		applicationCategory: 'DeveloperApplication',
+		operatingSystem: 'Web',
+		description:
+			'Free, open-source 2D tile map editor for indie game developers building layered worlds, tilesets, collision maps, and engine-ready exports.',
+		url: 'https://2dtiler.com/',
+		image: 'https://2dtiler.com/screenshot.png',
+		offers: {
+			'@type': 'Offer',
+			price: '0',
+			priceCurrency: 'USD',
+		},
+		featureList: [
+			'Tileset import and slicing',
+			'Multi-layer 2D map editing',
+			'Collision editing on the grid',
+			'JSON and XML export for game engines',
+		],
+		sameAs: ['https://github.com/2dtiler', 'https://app.2dtiler.com/'],
+	},
+	{
+		'@context': 'https://schema.org',
+		'@type': 'WebSite',
+		name: '2D Tiler',
+		url: 'https://2dtiler.com/',
+		description:
+			'2D Tiler is a free, open-source 2D tile map editor for indie game developers who need faster level design, tileset workflow, and export control.',
+	},
+];
 ---
 
 
 <Layout
-	title="2D Tiler — Build Your World"
-	description="A professional-grade, free, open-source 2D map editor for building layered worlds with precision."
+	title="Free Open-Source 2D Tile Map Editor for Indie Game Developers | 2D Tiler"
+	description="Build layered 2D game maps faster with a free, open-source tile map editor for tilesets, collision editing, and exports to Godot, Unity, and custom engines."
+	structuredData={structuredData}
 >
 	<Nav />
 	<main>

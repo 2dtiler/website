@@ -24,9 +24,23 @@ interface Props {
 const { currentPage } = Astro.props;
 const totalPages = await getReleaseNotesPageCount();
 const notes = await getReleaseNotesPage(currentPage);
+const canonicalUrl = `https://2dtiler.com/blog/page/${currentPage}`;
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'CollectionPage',
+	name: `2D Tiler Release Notes Page ${currentPage}`,
+	description:
+		'Paginated 2D Tiler release notes covering map editor improvements, tileset updates, collision tooling, and export workflow changes.',
+	url: canonicalUrl,
+};
 ---
 
-<Layout title={`Release Notes Page ${currentPage} — 2D Tiler`} description="A paginated archive of product updates and release notes for 2D Tiler.">
+<Layout
+	title={`2D Tiler Release Notes Page ${currentPage} | Tile Map Editor Changelog`}
+	description="Paginated 2D Tiler release notes covering map editor improvements, tileset updates, collision tooling, and export workflow changes."
+	canonicalUrl={canonicalUrl}
+	structuredData={structuredData}
+>
 	<Nav />
 	<main class="min-h-screen">
 		<ReleaseNotesArchive notes={notes} currentPage={currentPage} totalPages={totalPages} />

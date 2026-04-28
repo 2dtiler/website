@@ -2,34 +2,170 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+
+const structuredData = [
+	{
+		'@context': 'https://schema.org',
+		'@type': 'WebPage',
+		name: '2D Tiler Docs',
+		description:
+			'Documentation, tutorials, and workflow guides for 2D Tiler, a free open-source 2D tile map editor for indie game developers.',
+		url: 'https://2dtiler.com/docs',
+	},
+	{
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: [
+			{
+				'@type': 'Question',
+				name: 'What is 2D Tiler used for?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: '2D Tiler is used to build layered 2D game maps, manage tilesets, paint collision data, and export map files for game engines and custom pipelines.',
+				},
+			},
+			{
+				'@type': 'Question',
+				name: 'Is 2D Tiler free and open source?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Yes. 2D Tiler is free to use and open source under the MIT license.',
+				},
+			},
+			{
+				'@type': 'Question',
+				name: 'Can I export maps for Godot, Unity, or a custom engine?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Yes. 2D Tiler is designed to export JSON and XML map data that can fit Godot, Unity, and custom 2D engine workflows.',
+				},
+			},
+			{
+				'@type': 'Question',
+				name: 'Does 2D Tiler support collision editing?',
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: 'Yes. You can paint collision directly on the grid and keep collision metadata aligned with the rest of the map layout.',
+				},
+			},
+		],
+	},
+];
 ---
 
-<Layout title="Docs — 2D Tiler" description="Documentation is on the way. This placeholder page marks the future docs surface for 2D Tiler.">
+<Layout
+	title="2D Tile Map Editor Docs, Tutorials, and Workflow Guides | 2D Tiler"
+	description="Learn how to build maps, import tilesets, paint collision, and export level data with 2D Tiler, the free open-source 2D tile map editor for indie game developers."
+	structuredData={structuredData}
+>
 	<Nav />
 	<main class="mx-auto flex min-h-[calc(100vh-17rem)] w-full max-w-7xl flex-col gap-12 px-6 py-24 lg:px-8">
 		<section class="reveal flex max-w-4xl flex-col gap-4">
-			<p class="font-label-mono text-xs uppercase tracking-[0.28em] text-secondary">Docs / Placeholder</p>
-			<h1 class="text-4xl font-semibold uppercase tracking-[-0.04em] text-primary md:text-6xl">Documentation is being assembled.</h1>
+			<p class="font-label-mono text-xs uppercase tracking-[0.28em] text-secondary">Docs / Workflows / Tutorials</p>
+			<h1 class="text-4xl font-semibold uppercase tracking-[-0.04em] text-primary md:text-6xl">Learn the 2D tile map editor workflow from first map to final export.</h1>
 			<p class="max-w-3xl text-lg leading-8 text-on-surface-variant">
-				This page is a placeholder for setup guides, editor workflows, export references, and release migration notes.
+				Use this hub to learn tileset setup, layer management, collision editing, export workflows, and release-specific changes for 2D Tiler.
 			</p>
 		</section>
 
-		<section class="grid gap-4 md:grid-cols-2">
+		<section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4" id="getting-started">
 			<article class="reveal reveal-delay-1 rounded-xl border border-outline/35 bg-surface-container-low/70 p-8 backdrop-blur-2xl">
-				<p class="font-label-mono text-xs uppercase tracking-[0.24em] text-secondary">Planned</p>
-				<h2 class="mt-3 text-2xl font-medium tracking-[-0.03em] text-primary">Getting Started</h2>
+				<p class="font-label-mono text-xs uppercase tracking-[0.24em] text-secondary">Getting started</p>
+				<h2 class="mt-3 text-2xl font-medium tracking-[-0.03em] text-primary">Create your first map</h2>
 				<p class="mt-4 text-base leading-7 text-on-surface-variant">
-					How to open the editor, build a first map, work with tilesets, and export a clean project.
+					Open the editor, set your grid, place your first tiles, and establish a map layout that is ready for iteration.
 				</p>
 			</article>
 			<article class="reveal reveal-delay-2 rounded-xl border border-outline/35 bg-surface-container-low/70 p-8 backdrop-blur-2xl">
-				<p class="font-label-mono text-xs uppercase tracking-[0.24em] text-secondary">Planned</p>
-				<h2 class="mt-3 text-2xl font-medium tracking-[-0.03em] text-primary">Reference</h2>
+				<p class="font-label-mono text-xs uppercase tracking-[0.24em] text-secondary">Tilesets</p>
+				<h2 class="mt-3 text-2xl font-medium tracking-[-0.03em] text-primary">Import and slice tilesets</h2>
 				<p class="mt-4 text-base leading-7 text-on-surface-variant">
-					Documentation for layers, collisions, shortcuts, export formats, and release-specific changes.
+					Bring in pixel art tilesets, align them to the grid, and organize reusable assets for faster 2D level design.
 				</p>
 			</article>
+			<article class="reveal reveal-delay-3 rounded-xl border border-outline/35 bg-surface-container-low/70 p-8 backdrop-blur-2xl">
+				<p class="font-label-mono text-xs uppercase tracking-[0.24em] text-secondary">Map logic</p>
+				<h2 class="mt-3 text-2xl font-medium tracking-[-0.03em] text-primary">Paint layers and collision</h2>
+				<p class="mt-4 text-base leading-7 text-on-surface-variant">
+					Separate art, gameplay, and blocking data with clean layers and collision editing that stays aligned to the level grid.
+				</p>
+			</article>
+			<article class="reveal reveal-delay-4 rounded-xl border border-outline/35 bg-surface-container-low/70 p-8 backdrop-blur-2xl">
+				<p class="font-label-mono text-xs uppercase tracking-[0.24em] text-secondary">Export</p>
+				<h2 class="mt-3 text-2xl font-medium tracking-[-0.03em] text-primary">Ship data to your engine</h2>
+				<p class="mt-4 text-base leading-7 text-on-surface-variant">
+					Export JSON and XML map data for Godot, Unity, and custom engines without rebuilding your pipeline by hand.
+				</p>
+			</article>
+		</section>
+
+		<section class="grid gap-6 xl:grid-cols-[minmax(0,1.2fr)_360px]" id="reference">
+			<article class="reveal rounded-2xl border border-outline/35 bg-surface-container-low/70 p-8 backdrop-blur-2xl md:p-10">
+				<p class="font-label-mono text-xs uppercase tracking-[0.24em] text-secondary">Workflow reference</p>
+				<h2 class="mt-3 text-3xl font-medium tracking-[-0.03em] text-primary">What to learn next</h2>
+				<div class="mt-8 grid gap-6 md:grid-cols-2">
+					<div class="flex flex-col gap-3">
+						<h3 class="text-xl font-medium text-primary">Editor basics</h3>
+						<p class="text-base leading-7 text-on-surface-variant">Set grid size, navigate large maps, and keep tile placement consistent from the start of a project.</p>
+					</div>
+					<div class="flex flex-col gap-3">
+						<h3 class="text-xl font-medium text-primary">Tileset workflow</h3>
+						<p class="text-base leading-7 text-on-surface-variant">Prepare source art, slice cleanly, and reuse tilesets across multiple scenes and game environments.</p>
+					</div>
+					<div class="flex flex-col gap-3">
+						<h3 class="text-xl font-medium text-primary">Layer strategy</h3>
+						<p class="text-base leading-7 text-on-surface-variant">Separate visual detail, gameplay information, and collision zones so large maps stay editable.</p>
+					</div>
+					<div class="flex flex-col gap-3">
+						<h3 class="text-xl font-medium text-primary">Engine export</h3>
+						<p class="text-base leading-7 text-on-surface-variant">Move map data into Godot, Unity, or a custom engine with fewer manual cleanup steps after export.</p>
+					</div>
+				</div>
+			</article>
+
+			<aside class="reveal reveal-delay-1 flex h-max flex-col gap-4 rounded-2xl border border-outline/35 bg-surface-container-low/70 p-6 backdrop-blur-2xl">
+				<p class="font-label-mono text-xs uppercase tracking-[0.24em] text-secondary">Fast paths</p>
+				<a class="inline-flex items-center justify-between border border-outline/30 px-4 py-3 text-sm uppercase tracking-[0.18em] text-primary transition-colors duration-200 hover:border-outline hover:bg-surface-container" href="https://app.2dtiler.com/">
+					<span>Open the editor</span>
+					<span class="material-symbols-outlined text-base">arrow_forward</span>
+				</a>
+				<a class="inline-flex items-center justify-between border border-outline/30 px-4 py-3 text-sm uppercase tracking-[0.18em] text-primary transition-colors duration-200 hover:border-outline hover:bg-surface-container" href="/blog">
+					<span>Read release notes</span>
+					<span class="material-symbols-outlined text-base">arrow_forward</span>
+				</a>
+				<div class="border-t border-outline/20 pt-4">
+					<p class="font-label-mono text-[11px] uppercase tracking-[0.22em] text-on-surface-variant">Topics covered</p>
+					<ul class="mt-3 flex flex-col gap-3 text-sm leading-6 text-on-surface-variant">
+						<li>2D tile map editor basics</li>
+						<li>Tileset import and slicing</li>
+						<li>Collision editing workflow</li>
+						<li>JSON and XML export strategy</li>
+					</ul>
+				</div>
+			</aside>
+		</section>
+
+		<section class="reveal rounded-2xl border border-outline/35 bg-surface-container-low/70 p-8 backdrop-blur-2xl md:p-10" id="faq">
+			<p class="font-label-mono text-xs uppercase tracking-[0.24em] text-secondary">FAQ</p>
+			<h2 class="mt-3 text-3xl font-medium tracking-[-0.03em] text-primary">Common questions from indie game developers</h2>
+			<div class="mt-8 grid gap-6 md:grid-cols-2">
+				<article class="flex flex-col gap-3">
+					<h3 class="text-xl font-medium text-primary">What is 2D Tiler built for?</h3>
+					<p class="text-base leading-7 text-on-surface-variant">2D Tiler is built for creating layered 2D levels, managing tilesets, painting collision, and exporting maps for production workflows.</p>
+				</article>
+				<article class="flex flex-col gap-3">
+					<h3 class="text-xl font-medium text-primary">Is it free and open source?</h3>
+					<p class="text-base leading-7 text-on-surface-variant">Yes. The editor is free to use and open source under the MIT license.</p>
+				</article>
+				<article class="flex flex-col gap-3">
+					<h3 class="text-xl font-medium text-primary">Can I export to Godot or Unity?</h3>
+					<p class="text-base leading-7 text-on-surface-variant">The workflow is designed around JSON and XML exports that fit Godot, Unity, and custom engine pipelines.</p>
+				</article>
+				<article class="flex flex-col gap-3">
+					<h3 class="text-xl font-medium text-primary">Can I keep collision data with the level?</h3>
+					<p class="text-base leading-7 text-on-surface-variant">Yes. Collision can be edited directly on the grid so gameplay data remains aligned with the visual map structure.</p>
+				</article>
+			</div>
 		</section>
 	</main>
 	<Footer />

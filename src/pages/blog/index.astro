@@ -8,9 +8,21 @@ import { getReleaseNotesPage, getReleaseNotesPageCount } from '../../data/releas
 const currentPage = 1;
 const totalPages = await getReleaseNotesPageCount();
 const notes = await getReleaseNotesPage(currentPage);
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'CollectionPage',
+	name: '2D Tiler Release Notes',
+	description:
+		'Browse the 2D Tiler changelog, release notes, and map editor updates covering tilesets, collision workflows, and export improvements.',
+	url: 'https://2dtiler.com/blog',
+};
 ---
 
-<Layout title="Release Notes — 2D Tiler" description="A paginated archive of product updates and release notes for 2D Tiler.">
+<Layout
+	title="2D Tile Map Editor Release Notes and Changelog | 2D Tiler"
+	description="Browse the 2D Tiler changelog, release notes, and map editor updates covering tilesets, collision workflows, and export improvements."
+	structuredData={structuredData}
+>
 	<Nav />
 	<main class="min-h-screen">
 		<ReleaseNotesArchive notes={notes} currentPage={currentPage} totalPages={totalPages} />

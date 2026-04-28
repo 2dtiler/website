@@ -4,9 +4,8 @@ import Layout from '../../layouts/Layout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 import {
-	formatReleaseDate,
 	getAllReleaseNoteEntries,
-	type ReleaseNoteEntry,
+	formatReleaseDate, type ReleaseNoteEntry,
 } from '../../data/releaseNotes';
 
 export async function getStaticPaths() {
@@ -25,9 +24,34 @@ interface Props {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const note = entry.data;
+const canonicalUrl = `https://2dtiler.com/blog/${entry.id}`;
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'BlogPosting',
+	headline: `${note.version} — ${note.title}`,
+	description: note.summary,
+	datePublished: note.publishedAt.toISOString(),
+	mainEntityOfPage: canonicalUrl,
+	url: canonicalUrl,
+	image: 'https://2dtiler.com/screenshot.png',
+	author: {
+		'@type': 'Organization',
+		name: '2D Tiler',
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: '2D Tiler',
+	},
+};
 ---
 
-<Layout title={`${note.version} — ${note.title} — 2D Tiler`} description={note.summary}>
+<Layout
+	title={`${note.version} — ${note.title} — 2D Tiler Release Notes`}
+	description={note.summary}
+	ogType="article"
+	canonicalUrl={canonicalUrl}
+	structuredData={structuredData}
+>
 	<Nav />
 	<main class="mx-auto w-full max-w-7xl px-6 py-20 lg:px-8">
 		<header class="reveal flex max-w-4xl flex-col gap-4">
