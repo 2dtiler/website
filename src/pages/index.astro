@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
 import Features from '../components/Features.astro';
+import WorkflowShowcase from '../components/WorkflowShowcase.astro';
 import EditorPreview from '../components/EditorPreview.astro';
 import FinalCta from '../components/FinalCta.astro';
 import Footer from '../components/Footer.astro';
@@ -15,7 +16,7 @@ const structuredData = [
 		applicationCategory: 'DeveloperApplication',
 		operatingSystem: 'Web',
 		description:
-			'Free, open-source 2D tile map editor for indie game developers building layered worlds, tilesets, collision maps, and engine-ready exports.',
+			'Free, open-source 2D tile map editor for indie game developers building maps, tilesets, pixel assets, palettes, AI asset drafts, and engine-ready exports.',
 		url: 'https://2dtiler.com/',
 		image: 'https://2dtiler.com/screenshot.png',
 		offers: {
@@ -24,10 +25,12 @@ const structuredData = [
 			priceCurrency: 'USD',
 		},
 		featureList: [
-			'Tileset import and slicing',
-			'Multi-layer 2D map editing',
-			'Collision editing on the grid',
-			'JSON and XML export for game engines',
+			'Layered 2D map editing',
+			'Tileset and autotile terrain workflows',
+			'Pixel asset and palette editing',
+			'AI-assisted asset draft generation',
+			'Native project, map, and tileset files',
+			'Export workflows for Godot, Unity, Tiled, GameMaker, Defold, Phaser, tIDE, and Mappy',
 		],
 		sameAs: ['https://github.com/2dtiler', 'https://app.2dtiler.com/'],
 	},
@@ -45,13 +48,14 @@ const structuredData = [
 
 <Layout
 	title="Free Open-Source 2D Tile Map Editor for Indie Game Developers | 2D Tiler"
-	description="Build layered 2D game maps faster with a free, open-source tile map editor for tilesets, collision editing, and exports to Godot, Unity, and custom engines."
+	description="Build maps, tilesets, pixel assets, palettes, AI drafts, and engine-ready exports in a free, open-source browser editor for 2D game development."
 	structuredData={structuredData}
 >
 	<Nav />
 	<main>
 	<Hero />
 	<Features />
+	<WorkflowShowcase />
 	<EditorPreview />
 	<FinalCta />
 	</main>

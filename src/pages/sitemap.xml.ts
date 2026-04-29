@@ -3,10 +3,16 @@ import {
   getAllReleaseNotes,
   getReleaseNotesPageCount,
 } from "../data/releaseNotes";
+import { docsGuides, getDocsGuidePath } from "../data/docsGuides";
 
 export const prerender = true;
 
-const staticRoutes = ["/", "/docs", "/blog"];
+const staticRoutes = [
+  "/",
+  "/docs",
+  ...docsGuides.map((guide) => getDocsGuidePath(guide.slug)),
+  "/blog",
+];
 
 function getAbsoluteUrl(pathname: string) {
   return new URL(pathname, "https://2dtiler.com").toString();

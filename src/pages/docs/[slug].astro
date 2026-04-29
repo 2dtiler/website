@@ -1,0 +1,160 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import {
+	docsGuides,
+	getDocsGuideBySlug,
+	getDocsGuidePath,
+	type DocsGuide,
+} from '../../data/docsGuides';
+
+export function getStaticPaths() {
+	return docsGuides.map((guide) => ({
+		params: { slug: guide.slug },
+		props: { guide },
+	}));
+}
+
+interface Props {
+	guide: DocsGuide;
+}
+
+const { guide } = Astro.props;
+const relatedGuides = guide.relatedSlugs
+	.map((slug) => getDocsGuideBySlug(slug))
+	.filter((item): item is DocsGuide => Boolean(item));
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'TechArticle',
+	headline: guide.title,
+	description: guide.description,
+	url: `https://2dtiler.com${getDocsGuidePath(guide.slug)}`,
+	about: ['2D Tiler', guide.category],
+};
+---
+
+<Layout
+	title={`${guide.title} | 2D Tiler Docs`}
+	description={guide.description}
+	structuredData={structuredData}
+>
+	<Nav />
+	<main class="mx-auto flex min-h-[calc(100vh-17rem)] w-full max-w-7xl flex-col gap-14 px-6 py-20 lg:px-8">
+		<section class="reveal grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
+			<div class="flex max-w-4xl flex-col gap-5">
+				<a class="inline-flex w-fit items-center gap-2 font-label-mono text-xs uppercase tracking-[0.22em] text-secondary transition-colors duration-200 hover:text-primary" href="/docs">
+					<span class="material-symbols-outlined text-base">arrow_back</span>
+					Docs
+				</a>
+				<div class="flex items-center gap-3">
+					<span class="material-symbols-outlined text-[28px] text-secondary">{guide.icon}</span>
+					<p class="font-label-mono text-xs uppercase tracking-[0.24em] text-secondary">{guide.category}</p>
+				</div>
+				<h1 class="text-4xl font-semibold uppercase text-primary md:text-6xl">{guide.title}</h1>
+				<p class="max-w-3xl text-lg leading-8 text-on-surface-variant">{guide.description}</p>
+			</div>
+
+			<aside class="flex flex-col gap-5 border border-outline/35 bg-surface-container-low/70 p-6 backdrop-blur-2xl">
+				<div>
+					<p class="font-label-mono text-xs uppercase tracking-[0.22em] text-secondary">Quick facts</p>
+					<ul class="mt-4 grid gap-3 text-sm leading-6 text-on-surface-variant">
+						{guide.quickFacts.map((fact) => <li class="border-l border-outline/40 pl-3">{fact}</li>)}
+					</ul>
+				</div>
+				<div class="border-t border-outline/20 pt-5">
+					<p class="font-label-mono text-xs uppercase tracking-[0.22em] text-secondary">Guide index</p>
+					<nav class="mt-4 grid gap-2" aria-label="Documentation guides">
+						{docsGuides.map((item) => (
+							<a
+								class:list={[
+									'flex items-center justify-between border px-3 py-2 text-sm transition-colors duration-200',
+									item.slug === guide.slug
+										? 'border-secondary/60 bg-surface-container text-primary'
+										: 'border-outline/25 text-on-surface-variant hover:border-outline/70 hover:text-primary',
+								]}
+								href={getDocsGuidePath(item.slug)}
+								aria-current={item.slug === guide.slug ? 'page' : undefined}
+							>
+								<span>{item.title}</span>
+								<span class="material-symbols-outlined text-base">arrow_forward</span>
+							</a>
+						))}
+					</nav>
+				</div>
+			</aside>
+		</section>
+
+		<section
+			class="reveal reveal-delay-1 border border-dashed border-outline/50 bg-surface-dim/70 p-6 md:p-8"
+			role="img"
+			aria-label={guide.placeholderLabel}
+		>
+			<div class="flex aspect-video min-h-52 items-center justify-center border border-outline/25 bg-surface-container-low/50 p-6 text-center">
+				<div class="flex max-w-md flex-col items-center gap-3">
+					<span class="material-symbols-outlined text-4xl text-secondary">add_photo_alternate</span>
+					<p class="font-label-mono text-xs uppercase tracking-[0.22em] text-secondary">Image placeholder</p>
+					<p class="text-sm leading-6 text-on-surface-variant">{guide.placeholderLabel}</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="grid gap-8">
+			{guide.sections.map((section, index) => (
+				<article class={`reveal reveal-delay-${(index % 4) + 1} grid gap-8 border border-outline/35 bg-surface-container-low/70 p-6 backdrop-blur-2xl md:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(260px,360px)]`}>
+					<div class="flex flex-col gap-5">
+						<p class="font-label-mono text-xs uppercase tracking-[0.22em] text-secondary">Step {index + 1}</p>
+						<h2 class="text-2xl font-medium text-primary md:text-3xl">{section.heading}</h2>
+						<p class="text-base leading-7 text-on-surface-variant">{section.body}</p>
+
+						{section.steps && section.steps.length > 0 && (
+							<ol class="grid list-decimal gap-3 pl-5 text-base leading-7 text-on-surface-variant">
+								{section.steps.map((step) => <li class="pl-1">{step}</li>)}
+							</ol>
+						)}
+
+						{section.notes && section.notes.length > 0 && (
+							<ul class="grid gap-3 text-base leading-7 text-on-surface-variant">
+								{section.notes.map((note) => (
+									<li class="flex gap-3">
+										<span class="mt-2 h-1.5 w-1.5 shrink-0 bg-secondary"></span>
+										<span>{note}</span>
+									</li>
+								))}
+							</ul>
+						)}
+					</div>
+
+					<div
+						class="flex min-h-56 items-center justify-center border border-dashed border-outline/45 bg-surface-dim/80 p-5 text-center"
+						role="img"
+						aria-label={section.placeholderLabel ?? `Placeholder image for ${section.heading}`}
+					>
+						<div class="flex flex-col items-center gap-3">
+							<span class="material-symbols-outlined text-3xl text-secondary">image</span>
+							<p class="font-label-mono text-[11px] uppercase tracking-[0.22em] text-secondary">Screenshot slot</p>
+							<p class="text-sm leading-6 text-on-surface-variant">{section.placeholderLabel ?? `Add a screenshot for ${section.heading}.`}</p>
+						</div>
+					</div>
+				</article>
+			))}
+		</section>
+
+		{relatedGuides.length > 0 && (
+			<section class="reveal grid gap-4 md:grid-cols-3" aria-labelledby="related-guides-heading">
+				<div class="md:col-span-3">
+					<p class="font-label-mono text-xs uppercase tracking-[0.22em] text-secondary">Next guides</p>
+					<h2 id="related-guides-heading" class="mt-2 text-2xl font-medium text-primary">Keep moving through the workflow</h2>
+				</div>
+				{relatedGuides.map((item) => (
+					<a class="group border border-outline/35 bg-surface-container-low/70 p-6 transition-colors duration-200 hover:border-outline/80" href={getDocsGuidePath(item.slug)}>
+						<span class="material-symbols-outlined text-[28px] text-secondary">{item.icon}</span>
+						<h3 class="mt-4 text-xl font-medium text-primary group-hover:text-secondary">{item.title}</h3>
+						<p class="mt-3 text-sm leading-6 text-on-surface-variant">{item.summary}</p>
+					</a>
+				))}
+			</section>
+		)}
+	</main>
+	<Footer />
+</Layout>

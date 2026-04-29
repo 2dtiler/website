@@ -3,26 +3,50 @@ const features = [
 	{
 		icon: 'grid_view',
 		iconColor: 'text-secondary',
-		title: 'Tilesets',
-		description: 'Import and slice pixel art tilesets with grid-accurate controls built for fast 2D level design.',
+		title: 'Map Editor',
+		description: 'Paint, erase, fill, select, and autotile layered 2D maps with brush sizes built for fast iteration.',
+	},
+	{
+		icon: 'auto_awesome',
+		iconColor: 'text-primary',
+		title: 'Terrain Tools',
+		description: 'Configure autotile terrain rules and use weighted terrain fill to avoid repetitive tile placement.',
 	},
 	{
 		icon: 'layers',
 		iconColor: 'text-primary',
-		title: 'Layers',
-		description: 'Build complex 2D maps with multi-layer editing, better visual organization, and faster iteration.',
+		title: 'Layered Worlds',
+		description: 'Keep tile art, image layers, layer groups, and object data organized as maps become more complex.',
 	},
 	{
-		icon: 'architecture',
+		icon: 'image',
 		iconColor: 'text-primary',
-		title: 'Collision',
-		description: 'Paint collision directly on the grid and export gameplay-ready metadata with your level layout.',
+		title: 'Image Editor',
+		description: 'Revise pixel assets with pencil, eraser, fill, line, rectangle, contour, selection, crop, move, and blur tools.',
+	},
+	{
+		icon: 'palette',
+		iconColor: 'text-secondary',
+		title: 'Palette Workflows',
+		description: 'Import common palette formats including GIMP GPL, Adobe ASE, Aseprite, JASC PAL, Paint.NET TXT, and HEX lists.',
+	},
+	{
+		icon: 'smart_toy',
+		iconColor: 'text-primary',
+		title: 'AI Asset Drafts',
+		description: 'Generate starting points for tilesets, sprites, backgrounds, icons, UI elements, and VFX with provider-backed models.',
+	},
+	{
+		icon: 'save',
+		iconColor: 'text-primary',
+		title: 'Project Files',
+		description: 'Work locally in the browser and move full projects, maps, and tilesets through native .2dp, .2dm, and .2dt files.',
 	},
 	{
 		icon: 'output',
 		iconColor: 'text-primary',
 		title: 'Exports',
-		description: 'Export JSON and XML map data for Godot, Unity, and custom 2D engine pipelines without extra cleanup.',
+		description: 'Move maps and tilesets to Godot, Unity, Tiled, GameMaker, Defold, Phaser, tIDE, Mappy, raster, and native workflows.',
 	},
 ];
 ---
@@ -32,7 +56,7 @@ const features = [
 		{features.map((feature, index) => (
 			<article class={`reveal reveal-delay-${(index % 4) + 1} flex flex-col gap-4 rounded-xl border border-outline/35 bg-surface-container-low/70 p-8 backdrop-blur-2xl`}>
 				<span class:list={['material-symbols-outlined text-[32px]', feature.iconColor]}>{feature.icon}</span>
-				<h2 class="text-2xl font-medium tracking-[-0.03em] text-primary">{feature.title}</h2>
+				<h2 class="text-2xl font-medium text-primary">{feature.title}</h2>
 				<p class="text-base leading-7 text-on-surface-variant">{feature.description}</p>
 			</article>
 		))}

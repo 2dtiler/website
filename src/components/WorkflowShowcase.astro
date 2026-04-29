@@ -1,0 +1,89 @@
+---
+const workflowPanels = [
+	{
+		icon: 'map',
+		label: 'Map workflow',
+		title: 'Design maps without leaving the editor',
+		description:
+			'Paint tiles, organize layers, place objects, use terrain-aware tools, and keep the full level layout editable as the project changes.',
+		placeholderLabel:
+			'Placeholder image for the map editor canvas with layers, tilesets, and object tools.',
+		points: ['Tile, image, object, and group layers', 'Paint, erase, fill, select, and autotile tools', 'Object markers for triggers, zones, text, and spawn points'],
+	},
+	{
+		icon: 'auto_awesome',
+		label: 'Terrain workflow',
+		title: 'Turn tilesets into reusable terrain rules',
+		description:
+			'Configure autotile presets, choose terrain rules from the toolbar, and fill larger areas with weighted tile sets for less repetitive maps.',
+		placeholderLabel:
+			'Placeholder image for autotile terrain rule setup and weighted fill controls.',
+		points: ['Standard, diagonal, and sparse autotile presets', 'Brush sizes from 1x1 through 5x5', 'Weighted terrain fill for natural variation'],
+	},
+	{
+		icon: 'image',
+		label: 'Asset workflow',
+		title: 'Edit pixels and palettes in the same place',
+		description:
+			'Use a built-in image editor for quick asset fixes, shape work, selections, crop passes, blur, and palette imports from common pixel-art tools.',
+		placeholderLabel:
+			'Placeholder image for the image editor and palette import workflow.',
+		points: ['Pencil, eraser, bucket, line, rectangle, contour, selection, crop, move, and blur', 'GIMP GPL, Adobe ASE, Aseprite, JASC PAL, Paint.NET TXT, and HEX palettes', 'Brush sizes from 1 through 16 pixels'],
+	},
+	{
+		icon: 'output',
+		label: 'Export workflow',
+		title: 'Ship maps and tilesets to real pipelines',
+		description:
+			'Export native 2D Tiler files, raster images, Phaser bundles, Tiled resources, Godot scenes, Unity bundles, GameMaker rooms, Defold resources, tIDE maps, and Mappy FMP maps.',
+		placeholderLabel:
+			'Placeholder image for the import and export dialog with engine format options.',
+		points: ['Native .2dp, .2dm, and .2dt files', 'Godot, Unity, GameMaker, Defold, Tiled, Phaser, tIDE, and Mappy workflows', 'PNG, JPG, WebP, BMP, and GIF image paths'],
+	},
+];
+---
+
+<section class="mx-auto w-full max-w-7xl px-6 py-16 lg:px-8" id="workflow">
+	<div class="reveal flex max-w-3xl flex-col gap-4">
+		<p class="font-label-mono text-xs uppercase tracking-[0.24em] text-secondary">All-in-one workflow</p>
+		<h2 class="text-3xl font-semibold uppercase text-primary md:text-5xl">One workspace for maps, tilesets, pixels, palettes, AI drafts, and exports.</h2>
+		<p class="text-lg leading-8 text-on-surface-variant">
+			2D Tiler is built for the everyday production loop: make the map, fix the art, keep the palette consistent, try generated references, and hand off data to the engine.
+		</p>
+	</div>
+
+	<div class="mt-10 grid gap-5 lg:grid-cols-2">
+		{workflowPanels.map((panel, index) => (
+			<article class={`reveal reveal-delay-${(index % 4) + 1} grid gap-6 border border-outline/35 bg-surface-container-low/70 p-5 backdrop-blur-2xl md:p-6`}>
+				<div
+					class="flex aspect-16/10 min-h-64 items-center justify-center border border-dashed border-outline/45 bg-surface-dim/80 p-6 text-center"
+					role="img"
+					aria-label={panel.placeholderLabel}
+				>
+					<div class="flex max-w-sm flex-col items-center gap-3">
+						<span class="material-symbols-outlined text-4xl text-secondary">add_photo_alternate</span>
+						<p class="font-label-mono text-xs uppercase tracking-[0.22em] text-secondary">Image placeholder</p>
+						<p class="text-sm leading-6 text-on-surface-variant">{panel.placeholderLabel}</p>
+					</div>
+				</div>
+
+				<div class="flex flex-col gap-4">
+					<div class="flex items-center gap-3">
+						<span class="material-symbols-outlined text-[28px] text-secondary">{panel.icon}</span>
+						<p class="font-label-mono text-xs uppercase tracking-[0.22em] text-secondary">{panel.label}</p>
+					</div>
+					<h3 class="text-2xl font-medium text-primary">{panel.title}</h3>
+					<p class="text-base leading-7 text-on-surface-variant">{panel.description}</p>
+					<ul class="grid gap-2 text-sm leading-6 text-on-surface-variant">
+						{panel.points.map((point) => (
+							<li class="flex gap-3">
+								<span class="mt-2 h-1.5 w-1.5 shrink-0 bg-secondary"></span>
+								<span>{point}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+			</article>
+		))}
+	</div>
+</section>
